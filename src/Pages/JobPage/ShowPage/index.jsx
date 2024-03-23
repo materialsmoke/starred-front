@@ -16,11 +16,11 @@ const ProjectDetails = (props) => {
 
   const handleFavorite = (e, jobId) => {
     if (e.target.checked) {
-      post("/favorites", {
+      post(`/jobs/${jobId}/favorite`, {
         job_id: jobId,
       });
     } else {
-      destroy(`/favorites/${jobId}`).then((data) => {});
+      destroy(`/jobs/${jobId}/unfavorite`).then((data) => {});
     }
   };
 
@@ -41,7 +41,7 @@ const ProjectDetails = (props) => {
             longDescription={data.long_description}
             date={data.created_at}
             maxWidth={"100%"}
-            isFavorite={data.favorites}
+            isFavorite={data.is_favorite}
             handleFavoriteCallback={handleFavorite}
           />
           <div>

@@ -7,18 +7,18 @@ const JobPage = (props) => {
   let params = useParams();
   const [data, setData] = useState([]);
   useEffect(() => {
-    get(`/favorites`).then((data) => {
+    get(`/jobs/favorites`).then((data) => {
       setData(data.data);
     });
   }, [params]);
 
   const handleFavorite = (e, jobId) => {
     if (e.target.checked) {
-      post("/favorites", {
+      post(`/jobs/${jobId}/favorite`, {
         job_id: jobId,
       });
     } else {
-      destroy(`/favorites/${jobId}`).then((data) => {});
+      destroy(`/jobs/${jobId}/unfavorite`).then((data) => {});
     }
   };
 
@@ -33,7 +33,7 @@ const JobPage = (props) => {
         <Card
           key={item.id}
           id={item.id}
-          isFavorite={item.favorites}
+          isFavorite={item.is_favorite}
           title={item.title}
           shortDescription={item.short_description}
           handleFavoriteCallback={handleFavorite}
